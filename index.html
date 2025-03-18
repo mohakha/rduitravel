@@ -1,269 +1,250 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محادثة MoBot</title>
-    <!-- إضافة Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- إضافة Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <!-- إضافة SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- إضافة خط Cairo -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>RUDI - وكالة السفر والسياحة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .message { animation: slideIn 0.7s ease-out; }
-        .bubble {
-            max-width: 70%;
-            padding: 0.75rem 1rem; /* زيادة الحشو للفقاعات */
-            border-radius: 1.25rem; /* زيادة نصف القطر */
-            margin: 0.5rem 0; /* زيادة المسافة بين الفقاعات */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .user-bubble {
-            background: #fff;
-            color: #000;
-            align-self: flex-start; /* تغيير الاتجاه إلى اليسار */
-        }
-        .bot-bubble {
-            background: #1e3a8f;
-            color: white;
-            align-self: flex-end; /* تغيير الاتجاه إلى اليمين */
-        }
         body {
             font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #ffffff, #F56040);
+            color: #000000;
+            animation: gradientAnimation 10s ease infinite;
+            background-size: 200% 200%;
         }
-        /* تنسيق الأسطر الجديدة */
-        .bubble p {
-            white-space: pre-line;
-            margin: 0; /* إزالة الهوامش الداخلية */
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        /* تثبيت Input Box في الأسفل */
-        .input-box {
-            position: fixed;
-            bottom: 0;
+
+        .hero {
+            background: url('https://source.unsplash.com/1600x900/?travel') no-repeat center center/cover;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
             left: 0;
-            right: 0;
-            background-color: #1f2937; /* لون الخلفية */
-            padding: 1rem;
-            border-top: 1px solid #374151; /* إضافة حدود علوية */
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* طبقة شفافة داكنة */
+            z-index: 1; /* تأكد من أن الطبقة فوق الصورة */
         }
-        /* تجنب تداخل الرسائل */
-        #chat-box {
-            padding-bottom: 6rem; /* إضافة مساحة أسفل الرسائل لتجنب التداخل مع Input Box */
+
+        .hero-content {
+            position: relative;
+            z-index: 2; /* تأكد من أن المحتوى فوق الطبقة الشفافة */
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #25D366;
+            color: white;
+            padding: 15px;
+            border-radius: 50%; /* دائري تمامًا */
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+            width: 60px; /* عرض ثابت */
+            height: 60px; /* ارتفاع ثابت */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .whatsapp-float:hover {
+            animation: none;
+            transform: scale(1.1);
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .cta-button {
+            background: #F56040;
+            color: #ffffff;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #e04a2d;
+            transform: translateY(-5px);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #F56040;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #F56040;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
-<body class="bg-gray-800 text-white">
-    <div class="flex flex-col h-screen">
-        <!-- Header -->
-        <div class="p-4 bg-gray-900 flex justify-between items-center">
-            <h1 class="text-2xl font-bold">MoBot</h1>
-            <button
-                id="clear-chat"
-                class="p-2 bg-red-600 rounded-lg hover:bg-red-700"
-            >
-                <i class="fas fa-trash"></i> مسح الدردشة
-            </button>
-        </div>
+<body class="bg-gradient-to-r from-white to-[#F56040]">
+    <!-- زر الواتساب العائم -->
+    <a href="https://wa.me/+249917181300" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-        <!-- Chat Box -->
-        <div id="chat-box" class="flex-1 overflow-y-auto p-4 space-y-4">
-            <!-- الرسائل تظهر هنا -->
-        </div>
+    <!-- الهيدر -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="logo mb-4">RUDI - وكالة السفر والسياحة</h1>
+            <p class="fs-5 mb-5">اكتشف العالم مع خبراء السفر</p>
+            
+            <!-- العداد -->
+            <div class="countdown d-flex gap-4 mb-5" id="countdown">
+                <div class="countdown-item">
+                    <div class="days fs-1 fw-bold">00</div>
+                    <span class="fs-6">أيام</span>
+                </div>
+                <div class="countdown-item">
+                    <div class="hours fs-1 fw-bold">00</div>
+                    <span class="fs-6">ساعات</span>
+                </div>
+                <div class="countdown-item">
+                    <div class="minutes fs-1 fw-bold">00</div>
+                    <span class="fs-6">دقائق</span>
+                </div>
+                <div class="countdown-item">
+                    <div class="seconds fs-1 fw-bold">00</div>
+                    <span class="fs-6">ثواني</span>
+                </div>
+            </div>
 
-        <!-- Input Box -->
-        <div class="input-box">
-            <div class="flex items-center gap-3">
-                <textarea
-                    id="user-input"
-                    class="flex-1 p-2 bg-gray-700 rounded-lg resize-none"
-                    placeholder="اكتب رسالتك هنا..."
-                    rows="1"
-                ></textarea>
-                <button
-                    id="send-btn"
-                    class="p-3 bg-blue-600 rounded-lg hover:bg-blue-700 flex items-center justify-center"
-                >
-                    <i class="fas fa-paper-plane"></i>
-                </button>
+            <!-- زر الحجز -->
+            <a href="#contact" class="cta-button">
+                احجز رحلتك الآن
+            </a>
+        </div>
+    </header>
+
+    <!-- قسم الخدمات -->
+    <section class="features py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-globe feature-icon"></i>
+                        <h3 class="fs-4 fw-bold mb-2">رحلات عالمية</h3>
+                        <p class="fs-6">استمتع بأفضل العروض لأكثر من 200 وجهة حول العالم</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-hotel feature-icon"></i>
+                        <h3 class="fs-4 fw-bold mb-2">فنادق فاخرة</h3>
+                        <p class="fs-6">اختر من بين أفضل الفنادق ذات التقييمات العالمية</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-users feature-icon"></i>
+                        <h3 class="fs-4 fw-bold mb-2">مرشدين سياحيين</h3>
+                        <p class="fs-6">استفد من خبرة مرشدين محترفين يتحدثون العربية</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="footer py-4">
+        <div class="container text-center">
+            <div class="social-links d-flex justify-content-center gap-4 mb-3">
+                <a href="#" target="_blank" class="text-dark fs-4 hover:scale-110 transition-transform"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank" class="text-dark fs-4 hover:scale-110 transition-transform"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" class="text-dark fs-4 hover:scale-110 transition-transform"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="fs-6 mb-0">&copy; 2025 RUDI - وكالة السفر والسياحة. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
 
     <script>
-        const API_KEY = "AIzaSyDEo7PXnn6cGu0E7Ez3c_U5lI2sJkUWZH4"; // مفتاح API
-        const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"; // رابط API
+        // Fixed countdown to June 22, 2025
+        const targetDate = new Date('June 22, 2025 00:00:00').getTime();
 
-        const chatBox = document.getElementById('chat-box');
-        const userInput = document.getElementById('user-input');
-        const sendBtn = document.getElementById('send-btn');
-        const clearChatBtn = document.getElementById('clear-chat');
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
 
-        // تحميل المحادثات المحفوظة
-        window.addEventListener('load', () => {
-            const savedChat = localStorage.getItem('chat');
-            if (savedChat) {
-                chatBox.innerHTML = savedChat;
-            }
-        });
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // إرسال الرسالة
-        sendBtn.addEventListener('click', sendMessage);
-        userInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
-        });
-
-        // مسح الدردشة
-        clearChatBtn.addEventListener('click', () => {
-            Swal.fire({
-                title: 'هل أنت متأكد؟',
-                text: "سيتم مسح جميع الرسائل!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'نعم، مسح!',
-                cancelButtonText: 'إلغاء'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    chatBox.innerHTML = '';
-                    localStorage.removeItem('chat');
-                    Swal.fire(
-                        'تم المسح!',
-                        'تم مسح جميع الرسائل.',
-                        'success'
-                    );
-                }
-            });
-        });
-
-        async function sendMessage() {
-            if (userInput.value.trim() === '') return;
-
-            // عرض رسالة المستخدم
-            const userMessage = document.createElement('div');
-            userMessage.classList.add('message', 'flex', 'justify-start'); // تغيير الاتجاه إلى اليسار
-            userMessage.innerHTML = `
-                <div class="bubble user-bubble">
-                    <p>${userInput.value}</p>
-                    <small class="text-xs text-gray-300">${formatTime(new Date())}</small>
-                </div>
-            `;
-            chatBox.appendChild(userMessage);
-
-            // مسح حقل الإدخال
-            const userText = userInput.value;
-            userInput.value = '';
-
-            // عرض مؤشر التحميل
-            const loadingMessage = document.createElement('div');
-            loadingMessage.classList.add('message', 'flex', 'justify-end'); // تغيير الاتجاه إلى اليمين
-            loadingMessage.innerHTML = `
-                <div class="bubble bot-bubble">
-                    <p>جاري التحميل...</p>
-                </div>
-            `;
-            chatBox.appendChild(loadingMessage);
-
-            // التمرير إلى الأسفل
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            try {
-                // إرسال الرسالة إلى API
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-goog-api-key': API_KEY
-                    },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: userText }] }]
-                    })
-                });
-
-                const data = await response.json();
-                let botResponse = data.candidates[0].content.parts[0].text;
-
-                // تحويل التنسيقات (مثل *text* إلى <em>text</em>)
-                botResponse = formatText(botResponse);
-
-                // إزالة مؤشر التحميل
-                loadingMessage.remove();
-
-                // إنشاء id فريد لكل رسالة
-                const messageId = `typing-text-${Date.now()}`;
-
-                // عرض رد البوت مع تأثير الكتابة حرفًا بحرف
-                const botMessage = document.createElement('div');
-                botMessage.classList.add('message', 'flex', 'justify-end'); // تغيير الاتجاه إلى اليمين
-                botMessage.innerHTML = `
-                    <div class="bubble bot-bubble">
-                        <p id="${messageId}"></p>
-                        <small class="text-xs text-gray-400">${formatTime(new Date())}</small>
-                    </div>
-                `;
-                chatBox.appendChild(botMessage);
-
-                // تطبيق تأثير الكتابة حرفًا بحرف
-                typeText(messageId, botResponse);
-            } catch (error) {
-                console.error('Error:', error);
-                loadingMessage.remove();
-            }
-
-            // حفظ المحادثة في localStorage
-            localStorage.setItem('chat', chatBox.innerHTML);
-
-            // التمرير إلى الأسفل
-            chatBox.scrollTop = chatBox.scrollHeight;
+            document.querySelector('.days').innerHTML = days;
+            document.querySelector('.hours').innerHTML = hours;
+            document.querySelector('.minutes').innerHTML = minutes;
+            document.querySelector('.seconds').innerHTML = seconds;
         }
 
-        // وظيفة تحويل التنسيق
-        function formatText(text) {
-            // تحويل **text** إلى <strong>text</strong>
-            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            // تحويل *text* إلى <em>text</em>
-            text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
-            // تحويل /text/ إلى <i>text</i>
-            text = text.replace(/\/(.*?)\//g, '<i>$1</i>');
-            return text;
-        }
-
-        // وظيفة تنسيق الوقت (ساعة ودقيقة فقط)
-        function formatTime(date) {
-            const hours = date.getHours().toString().padStart(2, '0');
-            const minutes = date.getMinutes().toString().padStart(2, '0');
-            return `${hours}:${minutes}`;
-        }
-
-        // وظيفة تأثير الكتابة حرفًا بحرف
-        function typeText(elementId, text) {
-            let index = 0;
-            const typingElement = document.getElementById(elementId);
-            const typingSpeed = 50; // السرعة بالمللي ثانية (يمكن تعديلها)
-
-            // مسح النص القديم قبل البدء
-            typingElement.innerHTML = '';
-
-            function type() {
-                if (index < text.length) {
-                    typingElement.innerHTML += text.charAt(index);
-                    index++;
-                    setTimeout(type, typingSpeed);
-                }
-            }
-
-            type();
-        }
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
     </script>
 </body>
-</html>
+                    </html>
