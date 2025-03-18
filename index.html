@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RUDI - وكالة السفر والسياحة</title>
+    <title>RUDI - Travel and Tourism</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,42 +11,38 @@
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #ffffff, #F56040);
-            color: #000000;
-            animation: gradientAnimation 10s ease infinite;
-            background-size: 200% 200%;
-        }
-
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            background-color: #ffffff;
+            color: #333333;
         }
 
         .hero {
-            background: url('https://source.unsplash.com/1600x900/?travel') no-repeat center center/cover;
-            position: relative;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* طبقة شفافة داكنة */
-            z-index: 1; /* تأكد من أن الطبقة فوق الصورة */
-        }
-
-        .hero-content {
             position: relative;
-            z-index: 2; /* تأكد من أن المحتوى فوق الطبقة الشفافة */
+            overflow: hidden;
+        }
+
+        .plane-animation {
+            position: absolute;
+            top: 20%;
+            left: -100px;
+            font-size: 4rem;
+            color: #F56040;
+            animation: fly 8s linear infinite, scale 2s ease-in-out infinite;
+        }
+
+        @keyframes fly {
+            0% { transform: translateX(-100px) translateY(0); }
+            50% { transform: translateX(calc(100vw + 100px)) translateY(-50px); }
+            100% { transform: translateX(-100px) translateY(0); }
+        }
+
+        @keyframes scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         .whatsapp-float {
@@ -56,14 +52,13 @@
             background-color: #25D366;
             color: white;
             padding: 15px;
-            border-radius: 50%; /* دائري تمامًا */
+            border-radius: 50%;
             font-size: 24px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             transition: transform 0.3s ease;
             animation: float 3s ease-in-out infinite;
-            width: 60px; /* عرض ثابت */
-            height: 60px; /* ارتفاع ثابت */
+            width: 60px;
+            height: 60px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -80,9 +75,8 @@
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
             padding: 2rem;
@@ -91,18 +85,17 @@
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .footer {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            background: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
         }
 
         .countdown-item {
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
             border-radius: 10px;
             padding: 20px;
             text-align: center;
@@ -111,6 +104,7 @@
 
         .countdown-item:hover {
             transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
         }
 
         .cta-button {
@@ -133,52 +127,227 @@
             font-size: 2rem;
             font-weight: 700;
             color: #F56040;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .feature-icon {
             font-size: 3rem;
             color: #F56040;
             margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .destination-card {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .destination-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .destination-card p {
+            font-size: 1rem;
+            color: #555;
+            padding: 0 1rem 1rem;
+        }
+
+        .header {
+            background: #ffffff;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #F56040;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header .logo i {
+            margin-left: 10px;
+        }
+
+        .special-offer {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .special-offer h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .offer-slider {
+            display: flex;
+            animation: slide 10s infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(200%); }
+        }
+
+        .offer-card {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 1rem;
+            text-align: center;
+            margin: 1rem;
+            min-width: 300px;
+            flex: 0 0 auto;
+        }
+
+        .offer-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .offer-card p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .offer-card i {
+            font-size: 2rem;
+            color: #F56040;
+            margin-bottom: 1rem;
+        }
+
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ffffff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .language-switcher:hover {
+            background: #F56040;
+            color: white;
         }
     </style>
 </head>
-<body class="bg-gradient-to-r from-white to-[#F56040]">
+<body class="bg-white">
+    <!-- الهيدر -->
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-plane"></i>
+                <span>RuDi</span>
+            </div>
+            <div class="language-switcher" id="languageSwitcher">
+                English
+            </div>
+        </div>
+    </div>
+
+    <!-- عرض خاص -->
+    <div class="special-offer">
+        <h2 data-lang="ar">عروض خاصة!</h2>
+        <h2 data-lang="en" style="display: none;">Special Offers!</h2>
+        <div class="offer-slider">
+            <div class="offer-card">
+                <i class="fas fa-tags"></i>
+                <h3 data-lang="ar">خصم 20% على باريس</h3>
+                <h3 data-lang="en" style="display: none;">20% Off on Paris</h3>
+                <p data-lang="ar">احجز الآن واستمتع بخصم 20% على رحلات باريس.</p>
+                <p data-lang="en" style="display: none;">Book now and enjoy 20% off on Paris trips.</p>
+            </div>
+            <div class="offer-card">
+                <i class="fas fa-tags"></i>
+                <h3 data-lang="ar">عروض الصيف الحصرية</h3>
+                <h3 data-lang="en" style="display: none;">Exclusive Summer Offers</h3>
+                <p data-lang="ar">عروض خاصة على رحلات الصيف لفترة محدودة.</p>
+                <p data-lang="en" style="display: none;">Special offers on summer trips for a limited time.</p>
+            </div>
+            <div class="offer-card">
+                <i class="fas fa-tags"></i>
+                <h3 data-lang="ar">رحلات العائلة</h3>
+                <h3 data-lang="en" style="display: none;">Family Trips</h3>
+                <p data-lang="ar">خصم 15% على رحلات العائلة إلى اليابان.</p>
+                <p data-lang="en" style="display: none;">15% off on family trips to Japan.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- زر الواتساب العائم -->
-    <a href="https://wa.me/+249917181300" target="_blank" class="whatsapp-float">
+    <a href="https://wa.me/249917181300" target="_blank" class="whatsapp-float">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <!-- الهيدر -->
     <header class="hero">
+        <div class="plane-animation">
+            <i class="fas fa-plane"></i>
+        </div>
         <div class="hero-content">
-            <h1 class="logo mb-4">RUDI - وكالة السفر والسياحة</h1>
-            <p class="fs-5 mb-5">اكتشف العالم مع خبراء السفر</p>
+            <h1 class="logo mb-4" data-lang="ar">RUDI - وكالة السفر والسياحة</h1>
+            <h1 class="logo mb-4" data-lang="en" style="display: none;">RUDI - Travel and Tourism Agency</h1>
+            <p class="fs-5 mb-5" data-lang="ar">اكتشف العالم مع خبراء السفر</p>
+            <p class="fs-5 mb-5" data-lang="en" style="display: none;">Discover the world with travel experts</p>
             
             <!-- العداد -->
-            <div class="countdown d-flex gap-4 mb-5" id="countdown">
+            <div class="countdown d-flex gap-4 mb-5 justify-content-center" id="countdown">
                 <div class="countdown-item">
                     <div class="days fs-1 fw-bold">00</div>
-                    <span class="fs-6">أيام</span>
+                    <span class="fs-6" data-lang="ar">أيام</span>
+                    <span class="fs-6" data-lang="en" style="display: none;">Days</span>
                 </div>
                 <div class="countdown-item">
                     <div class="hours fs-1 fw-bold">00</div>
-                    <span class="fs-6">ساعات</span>
+                    <span class="fs-6" data-lang="ar">ساعات</span>
+                    <span class="fs-6" data-lang="en" style="display: none;">Hours</span>
                 </div>
                 <div class="countdown-item">
                     <div class="minutes fs-1 fw-bold">00</div>
-                    <span class="fs-6">دقائق</span>
+                    <span class="fs-6" data-lang="ar">دقائق</span>
+                    <span class="fs-6" data-lang="en" style="display: none;">Minutes</span>
                 </div>
                 <div class="countdown-item">
                     <div class="seconds fs-1 fw-bold">00</div>
-                    <span class="fs-6">ثواني</span>
+                    <span class="fs-6" data-lang="ar">ثواني</span>
+                    <span class="fs-6" data-lang="en" style="display: none;">Seconds</span>
                 </div>
             </div>
 
             <!-- زر الحجز -->
-            <a href="#contact" class="cta-button">
-                احجز رحلتك الآن
-            </a>
+            <a href="#contact" class="cta-button" data-lang="ar">احجز رحلتك الآن</a>
+            <a href="#contact" class="cta-button" data-lang="en" style="display: none;">Book Your Trip Now</a>
         </div>
     </header>
 
@@ -189,22 +358,83 @@
                 <div class="col-md-4">
                     <div class="feature-card">
                         <i class="fas fa-globe feature-icon"></i>
-                        <h3 class="fs-4 fw-bold mb-2">رحلات عالمية</h3>
-                        <p class="fs-6">استمتع بأفضل العروض لأكثر من 200 وجهة حول العالم</p>
+                        <h3 class="fs-4 fw-bold mb-2" data-lang="ar">رحلات عالمية</h3>
+                        <h3 class="fs-4 fw-bold mb-2" data-lang="en" style="display: none;">Global Trips</h3>
+                        <p class="fs-6" data-lang="ar">استمتع بأفضل العروض لأكثر من 200 وجهة حول العالم</p>
+                        <p class="fs-6" data-lang="en" style="display: none;">Enjoy the best offers for over 200 destinations worldwide</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="feature-card">
                         <i class="fas fa-hotel feature-icon"></i>
-                        <h3 class="fs-4 fw-bold mb-2">فنادق فاخرة</h3>
-                        <p class="fs-6">اختر من بين أفضل الفنادق ذات التقييمات العالمية</p>
+                        <h3 class="fs-4 fw-bold mb-2" data-lang="ar">فنادق فاخرة</h3>
+                        <h3 class="fs-4 fw-bold mb-2" data-lang="en" style="display: none;">Luxury Hotels</h3>
+                        <p class="fs-6" data-lang="ar">اختر من بين أفضل الفنادق ذات التقييمات العالمية</p>
+                        <p class="fs-6" data-lang="en" style="display: none;">Choose from the best hotels with global ratings</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="feature-card">
                         <i class="fas fa-users feature-icon"></i>
-                        <h3 class="fs-4 fw-bold mb-2">مرشدين سياحيين</h3>
-                        <p class="fs-6">استفد من خبرة مرشدين محترفين يتحدثون العربية</p>
+                        <h3 class="fs-4 fw-bold mb-2" data-lang="ar">مرشدين سياحي��ن</h3>
+                        <h3 class="fs-4 fw-bold mb-2" data-lang="en" style="display: none;">Tour Guides</h3>
+                        <p class="fs-6" data-lang="ar">استفد من خبرة مرشدين محترفين يتحدثون العربية</p>
+                        <p class="fs-6" data-lang="en" style="display: none;">Benefit from the expertise of professional Arabic-speaking guides</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الوجهات -->
+    <section class="destinations py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold" data-lang="ar">وجهاتنا المميزة</h2>
+            <h2 class="text-center mb-5 fw-bold" data-lang="en" style="display: none;">Our Featured Destinations</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="destination-card">
+                        <i class="fas fa-globe-africa feature-icon"></i>
+                        <h3 class="text-center" data-lang="ar">السودان</h3>
+                        <h3 class="text-center" data-lang="en" style="display: none;">Sudan</h3>
+                        <p class="text-center" data-lang="ar">اكتشف جمال الطبيعة والثقافة الغنية.</p>
+                        <p class="text-center" data-lang="en" style="display: none;">Discover the beauty of nature and rich culture.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="destination-card">
+                        <i class="fas fa-monument feature-icon"></i>
+                        <h3 class="text-center" data-lang="ar">مصر</h3>
+                        <h3 class="text-center" data-lang="en" style="display: none;">Egypt</h3>
+                        <p class="text-center" data-lang="ar">استمتع بالأهرامات ونهر النيل.</p>
+                        <p class="text-center" data-lang="en" style="display: none;">Enjoy the pyramids and the Nile River.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="destination-card">
+                        <i class="fas fa-mosque feature-icon"></i>
+                        <h3 class="text-center" data-lang="ar">السعودية</h3>
+                        <h3 class="text-center" data-lang="en" style="display: none;">Saudi Arabia</h3>
+                        <p class="text-center" data-lang="ar">زيارة المسجد الحرام والمدينة المنورة.</p>
+                        <p class="text-center" data-lang="en" style="display: none;">Visit the Holy Mosque and Medina.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="destination-card">
+                        <i class="fas fa-torii-gate feature-icon"></i>
+                        <h3 class="text-center" data-lang="ar">اليابان</h3>
+                        <h3 class="text-center" data-lang="en" style="display: none;">Japan</h3>
+                        <p class="text-center" data-lang="ar">استكشف الثقافة التقليدية والتكنولوجيا الحديثة.</p>
+                        <p class="text-center" data-lang="en" style="display: none;">Explore traditional culture and modern technology.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="destination-card">
+                        <i class="fas fa-landmark feature-icon"></i>
+                        <h3 class="text-center" data-lang="ar">كوريا</h3>
+                        <h3 class="text-center" data-lang="en" style="display: none;">Korea</h3>
+                        <p class="text-center" data-lang="ar">تجربة الثقافة الكورية والطعام اللذيذ.</p>
+                        <p class="text-center" data-lang="en" style="display: none;">Experience Korean culture and delicious food.</p>
                     </div>
                 </div>
             </div>
@@ -219,7 +449,8 @@
                 <a href="#" target="_blank" class="text-dark fs-4 hover:scale-110 transition-transform"><i class="fab fa-instagram"></i></a>
                 <a href="#" target="_blank" class="text-dark fs-4 hover:scale-110 transition-transform"><i class="fab fa-tiktok"></i></a>
             </div>
-            <p class="fs-6 mb-0">&copy; 2025 RUDI - وكالة السفر والسياحة. جميع الحقوق محفوظة.</p>
+            <p class="fs-6 mb-0" data-lang="ar">&copy; 2025 رودي - وكالة السفر والسياحة. جميع الحقوق محفوظة.</p>
+            <p class="fs-6 mb-0" data-lang="en" style="display: none;">&copy; 2025 RUDI - Travel and Tourism Agency. All rights reserved.</p>
         </div>
     </footer>
 
@@ -245,6 +476,23 @@
         // Update countdown every second
         setInterval(updateCountdown, 1000);
         updateCountdown(); // Initial call
+
+        // Language Switcher
+        const languageSwitcher = document.getElementById('languageSwitcher');
+        const arabicElements = document.querySelectorAll('[data-lang="ar"]');
+        const englishElements = document.querySelectorAll('[data-lang="en"]');
+
+        languageSwitcher.addEventListener('click', () => {
+            if (languageSwitcher.textContent === 'English') {
+                languageSwitcher.textContent = 'العربية';
+                arabicElements.forEach(el => el.style.display = 'none');
+                englishElements.forEach(el => el.style.display = 'block');
+            } else {
+                languageSwitcher.textContent = 'English';
+                arabicElements.forEach(el => el.style.display = 'block');
+                englishElements.forEach(el => el.style.display = 'none');
+            }
+        });
     </script>
 </body>
-                    </html>
+    </html>
